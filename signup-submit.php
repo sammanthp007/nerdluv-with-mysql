@@ -123,6 +123,7 @@ $result = mysqli_query($db, $sql);
 
 if ($result) {
     $new_user_id = mysqli_insert_id($db);
+
     /* insert into fav_os */
     $sql = "INSERT INTO fav_os ";
     $sql .= "(name, user_id) ";
@@ -133,7 +134,17 @@ if ($result) {
 
     $result = mysqli_query($db, $sql);
 
-    echo "Updated fav os as well";
+    /* insert into Personalities */
+    $sql = "INSERT INTO personalities ";
+    $sql .= "(name, user_id) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . $user['personality_type'] . "',";
+    $sql .= "'" . $new_user_id . "' ";
+    $sql .= ");";
+
+    $result = mysqli_query($db, $sql);
+
+    echo "Updated personality as well";
 
 }
 else {
