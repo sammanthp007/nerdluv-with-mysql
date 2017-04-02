@@ -1,6 +1,6 @@
 <?php include("top.html"); ?>
 <?php
-  require_once('./init.php');
+require_once('./init.php');
 ?>
 <?php
 
@@ -105,5 +105,29 @@ else {
     </div>
 <?php
 }
+
+/* add to database */
+global $db;
+
+$created_at = date("Y-m-d H:i:s");
+$sql = "INSERT INTO users ";
+$sql .= "(name, gender, age, created_at) ";
+$sql .= "VALUES (";
+$sql .= "'" . $user['name'] . "',";
+$sql .= "'" . $user['gender'] . "',";
+$sql .= "'" . $user['age'] . "',";
+$sql .= "'" . $created_at . "' ";
+$sql .= ");";
+// For INSERT statements, $result is just true/false
+$result = mysqli_query($db, $sql);
+
+if ($result) {
+    echo "<<<<<<<<<<<<<<New record has id: " . mysqli_insert_id($db);
+}
+else {
+    echo ">>>>>>>>>>>>>>>>>senty";
+}
+
+mysqli_close($db);
 ?>
 <?php include("bottom.html"); ?>
