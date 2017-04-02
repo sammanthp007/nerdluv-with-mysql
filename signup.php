@@ -1,4 +1,7 @@
 <?php include("top.html"); ?>
+<?php
+  require_once('./init.php');
+?>
 
 <div>
     <form action="signup-submit.php" method="post">

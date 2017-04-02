@@ -1,4 +1,7 @@
 <?php include("top.html"); ?>
+<?php
+  require_once('./init.php');
+?>
 
 <!-- Web Programming Step by Step, Homework 4 (NerdLuv)
      This provided file is the front page that links to two of the files you are going

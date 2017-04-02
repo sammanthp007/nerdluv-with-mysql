@@ -1,5 +1,8 @@
 <?php include("top.html"); ?>
 <?php
+  require_once('./init.php');
+?>
+<?php
 
 /* Set default values for all variables the page needs. */
 $errors = array();
