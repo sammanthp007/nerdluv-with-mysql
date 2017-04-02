@@ -15,9 +15,16 @@ $all_users = mysqli_query($db, $sql);
 
 if ($all_users->num_rows > 0) {
     while ($row = $all_users->fetch_assoc()) {
-        /* get users personality type */
         $user_id = $row["id"];
+
+        /* get users personality type */
         $sql = "SELECT name FROM personalities WHERE user_id = ";
+        $sql .= $user_id . ";";
+        $response_personality = mysqli_query($db, $sql);
+        $user_personality = $response_personality->fetch_assoc()["name"];
+
+        /* get users fav os */
+        $sql = "SELECT name FROM fav_os WHERE user_id = ";
         $sql .= $user_id . ";";
         $response_personality = mysqli_query($db, $sql);
         $user_personality = $response_personality->fetch_assoc()["name"];
