@@ -60,3 +60,5 @@ Nancy,F,24,ENFP,Windows,22,44
 Ayush,M,22,ENTP,Windows,20,35
 Park,M,39,ENFP,Windows,10,60
 Olive,F,68,ENFP,Mac OS X,58,73
+Popeye,M,70,ENFP,Mac OS X,60,71
+Romeo,M,19,ENFP,Windows,17,20

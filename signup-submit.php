@@ -122,7 +122,19 @@ $sql .= ");";
 $result = mysqli_query($db, $sql);
 
 if ($result) {
-    echo "<<<<<<<<<<<<<<New record has id: " . mysqli_insert_id($db);
+    $new_user_id = mysqli_insert_id($db);
+    /* insert into fav_os */
+    $sql = "INSERT INTO fav_os ";
+    $sql .= "(name, user_id) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . $user['favorite_os'] . "',";
+    $sql .= "'" . $new_user_id . "' ";
+    $sql .= ");";
+
+    $result = mysqli_query($db, $sql);
+
+    echo "Updated fav os as well";
+
 }
 else {
     echo ">>>>>>>>>>>>>>>>>senty";
