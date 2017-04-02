@@ -65,3 +65,4 @@ Romeo,M,19,ENFP,Windows,17,20
 Juliet,F,18,ENFP,Windows,18,22
 Ram,M,35,ENTP,Windows,15,19
 Sita,F,18,ENFP,Windows,21,40
+Kaushalya,F,17,ENTP,Windows,18,40

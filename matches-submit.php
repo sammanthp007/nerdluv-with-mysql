@@ -50,15 +50,10 @@ if ($all_users->num_rows > 0) {
     }
 }
 
-echo $user_name . " " . $user_max_seek . " " . $user_os .  "\n";
-echo $user_id. " " . $user_min_seek . " " .$user_personality . "\n";
-echo $user_gender;
-
 /* get opposite gender */
 $match_gender = '';
 if (strcmp($user_gender, 'M') === 0) {
     $match_gender = 'F';
-    echo $match_gender;
 } else {
     $match_gender = 'M';
 }
@@ -90,58 +85,42 @@ $sql .= "'" . $match_gender . "' ";
 $sql .= "and users.age > ". $user_min_seek . " ";
 $sql .= "and users.age < ". $user_max_seek . " ";
 $sql .= "and seeking_age.min_age < " . $user_age . " ";
-$sql .= "and seeking_age.max_age > " . $user_age . ";";
-
-echo "\n" . $sql . "\n\n\n\n\n";
+$sql .= "and seeking_age.max_age > " . $user_age . " ";
+$sql .= "and fav_os.name = '" . $user_os . "'; ";
 
 $results = mysqli_query($db, $sql);
 
 if ($results->num_rows > 0) {
     while ($row = $results->fetch_assoc()) {
-        echo "\n";
-        $p = array_keys($row);
-        foreach ($p as $v) {
-            echo $v . "\n";
-            echo $row[$v];
-        }
+        /* At least one personality type in common */
+        $inRegex = "/[".$user_personality."]/";
+        if (preg_match($inRegex, $row["personality"]) === 1){
+            $matches[] = $row;
 
-    }
-}
-
-
-
-    /* Check favorite OS */
-    if($user_matches_others_choice && $other_matches_users_choice){
-        if (strcmp($user_os, $other_os) === 0) {
-
-            /* At least one personality type in common */
-            $inRegex = "/[".$user_personality."]/";
-            if (preg_match($inRegex, $other_personality) === 1) {
-                $matches[] = $singles[$i];
-
-                if ($is_first) {
+            if ($is_first) {
 ?>
         <strong>Matches for <?= $_GET["name"] ?></strong><br>
 <?php
-                    $is_first = false;
-                }
+                $is_first = false;
+            }
 ?>
   <div class="match">
       <img src="user.jpg" alt="photo"/>
       <div>
           <ul>
-              <li><p><?= $other_info_array[0] ?></p></li>
-              <li><strong>gender:</strong> <?= $other_gender ?></li>
-              <li><strong> age:</strong> <?= $other_age ?> </li>
-              <li><strong> type:</strong> <?= $other_personality ?> </li>
-              <li><strong> OS:</strong> <?= $other_os ?></li>
+              <li><p><?= $row["name"] ?></p></li>
+              <li><strong>gender:</strong> <?= $row["gender"] ?></li>
+              <li><strong> age:</strong> <?= $row["age"] ?> </li>
+              <li><strong> type:</strong> <?= $row["personality"] ?> </li>
+              <li><strong> OS:</strong> <?= $row["os"] ?></li>
           </ul>
       </div>
   </div>
 <?php
-            }
         }
     }
+}
+
 ?>
 </div>
 
@@ -151,4 +130,5 @@ if (count($matches) === 0) {
 <div> No match is found. </div>
 <?php
 }
+mysqli_close($db);
 include("bottom.html"); ?>
