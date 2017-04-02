@@ -144,11 +144,16 @@ if ($result) {
 
     $result = mysqli_query($db, $sql);
 
-    echo "Updated personality as well";
+    /* insert into seeking age */
+    $sql = "INSERT INTO seeking_age ";
+    $sql .= "(min_age, max_age, user_id) ";
+    $sql .= "VALUES (";
+    $sql .= "'" . $user['min_seeking_age'] . "',";
+    $sql .= "'" . $user['max_seeking_age'] . "',";
+    $sql .= "'" . $new_user_id . "' ";
+    $sql .= ");";
 
-}
-else {
-    echo ">>>>>>>>>>>>>>>>>senty";
+    $result = mysqli_query($db, $sql);
 }
 
 mysqli_close($db);

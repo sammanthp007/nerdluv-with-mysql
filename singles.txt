@@ -63,3 +63,4 @@ Olive,F,68,ENFP,Mac OS X,58,73
 Popeye,M,70,ENFP,Mac OS X,60,71
 Romeo,M,19,ENFP,Windows,17,20
 Juliet,F,18,ENFP,Windows,18,22
+Ram,M,35,ENTP,Windows,15,19
