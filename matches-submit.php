@@ -70,44 +70,61 @@ $matches = array();
 <div>
 <?php
 $is_first = true;
-for ($i = 0; $i < count($singles); $i++) {
-    /* Get others info */
-    $other_info_array = explode(",", $singles[$i]);
-    $other_gender = $other_info_array[1];
-    $other_age = (int)$other_info_array[2];
-    $other_personality = $other_info_array[3];
-    $other_os = $other_info_array[4];
-    $other_min_seek = (int)$other_info_array[5];
-    $other_max_seek = (int)$other_info_array[6];
+/* Get others info */
+$other_gender = $match_gender;
+$other_age = 0;
+$other_personality = '';
+$other_os = '';
+$other_min_seek = 0;
+$other_max_seek = 0;
 
-    /* Check gender */
-    if (strcmp($match_gender, $other_gender) === 0) {
+/* sql for the match */
+$sql = "SELECT users.name, gender, age, ";
+$sql .= "fav_os.name as os, ";
+$sql .= "personalities.name as personality FROM users ";
+$sql .= "JOIN fav_os ON users.id = fav_os.user_id ";
+$sql .= "JOIN seeking_age ON users.id = seeking_age.user_id ";
+$sql .= "JOIN personalities ON users.id = personalities.user_id ";
+$sql .= "WHERE users.gender = ";
+$sql .= "'" . $match_gender . "' ";
+$sql .= "and users.age > ". $user_min_seek . " ";
+$sql .= "and users.age < ". $user_max_seek . " ";
+$sql .= "and seeking_age.min_age < " . $user_age . " ";
+$sql .= "and seeking_age.max_age > " . $user_age . ";";
 
-        /* Check age compatibility */
-        $user_matches_others_choice = NULL;
-        $other_matches_users_choice = NULL;
+echo "\n" . $sql . "\n\n\n\n\n";
 
-        if ($other_min_seek <= $user_age && $user_age <= $other_max_seek)
-            $user_matches_others_choice = TRUE;
+$results = mysqli_query($db, $sql);
 
-        if($user_min_seek <= $other_age && $other_age <= $user_max_age)
-            $other_matches_users_choice = TRUE;
+if ($results->num_rows > 0) {
+    while ($row = $results->fetch_assoc()) {
+        echo "\n";
+        $p = array_keys($row);
+        foreach ($p as $v) {
+            echo $v . "\n";
+            echo $row[$v];
+        }
 
-        /* Check favorite OS */
-        if($user_matches_others_choice && $other_matches_users_choice){
-            if (strcmp($user_os, $other_os) === 0) {
+    }
+}
 
-                /* At least one personality type in common */
-                $inRegex = "/[".$user_personality."]/";
-                if (preg_match($inRegex, $other_personality) === 1) {
-                    $matches[] = $singles[$i];
 
-                    if ($is_first) {
+
+    /* Check favorite OS */
+    if($user_matches_others_choice && $other_matches_users_choice){
+        if (strcmp($user_os, $other_os) === 0) {
+
+            /* At least one personality type in common */
+            $inRegex = "/[".$user_personality."]/";
+            if (preg_match($inRegex, $other_personality) === 1) {
+                $matches[] = $singles[$i];
+
+                if ($is_first) {
 ?>
         <strong>Matches for <?= $_GET["name"] ?></strong><br>
 <?php
-                        $is_first = false;
-                    }
+                    $is_first = false;
+                }
 ?>
   <div class="match">
       <img src="user.jpg" alt="photo"/>
@@ -122,11 +139,9 @@ for ($i = 0; $i < count($singles); $i++) {
       </div>
   </div>
 <?php
-                }
             }
         }
     }
-}
 ?>
 </div>
 
