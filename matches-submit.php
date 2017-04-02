@@ -7,6 +7,14 @@ include("top.html");
 $singles = file("singles.txt");
 
 /* Get the info about user */
+$user_personality = '';
+$user_os = '';
+$user_min_seek = 0;
+$user_max_seek = 0;
+$user_gender = '';
+$user_age = 0;
+$user_id = 0;
+
 global $db;
 $user_name = $_GET["name"];
 
@@ -16,6 +24,8 @@ $all_users = mysqli_query($db, $sql);
 if ($all_users->num_rows > 0) {
     while ($row = $all_users->fetch_assoc()) {
         $user_id = $row["id"];
+        $user_gender = $row["gender"];
+        $user_age = (int)$row["age"];
 
         /* get users personality type */
         $sql = "SELECT name FROM personalities WHERE user_id = ";
@@ -26,38 +36,32 @@ if ($all_users->num_rows > 0) {
         /* get users fav os */
         $sql = "SELECT name FROM fav_os WHERE user_id = ";
         $sql .= $user_id . ";";
-        $response_personality = mysqli_query($db, $sql);
-        $user_personality = $response_personality->fetch_assoc()["name"];
+        $response_favos = mysqli_query($db, $sql);
+        $user_os = $response_favos->fetch_assoc()["name"];
 
+        /* get users min and max seek age */
+        $sql = "SELECT min_age, max_age FROM seeking_age ";
+        $sql .= "WHERE user_id = ";
+        $sql .= $user_id . ";";
+        $response_seek_ages = mysqli_query($db, $sql);
+        $seek_ages = $response_seek_ages->fetch_assoc();
+        $user_min_seek = (int)$seek_ages["min_age"];
+        $user_max_seek = (int)$seek_ages["max_age"];
     }
 }
 
-/* Find and get user */
-$user_info_line = '';
-for ($i = 0; $i < count($singles); $i++) {
-    $user_info_line = strstr($singles[$i], $_GET["name"]);
-    if ($user_info_line !== FALSE) {
-        break;
-    }
-}
-
-$user_info = explode(",", $user_info_line);
-
-$user_gender = $user_info[1];
-$user_age = (int)$user_info[2];
-$user_personality = $user_info[3];
-$user_os = $user_info[4];
-$user_min_seek = (int)$user_info[5];
-$user_max_age = (int)$user_info[6];
+echo $user_name . " " . $user_max_seek . " " . $user_os .  "\n";
+echo $user_id. " " . $user_min_seek . " " .$user_personality . "\n";
+echo $user_gender;
 
 /* get opposite gender */
 $match_gender = '';
 if (strcmp($user_gender, 'M') === 0) {
     $match_gender = 'F';
+    echo $match_gender;
 } else {
     $match_gender = 'M';
 }
-
 
 $matches = array();
 
