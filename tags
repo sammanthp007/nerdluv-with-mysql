@@ -1,0 +1,26 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+DISABLE_ALL_EXTRA	support_files/extra.php	/^$DISABLE_ALL_EXTRA = FALSE;$/;"	v
+EXTRA	support_files/provided.js	/^	var EXTRA = [];$/;"	v
+EXTRA_FEATURE_GAY	support_files/extra.php	/^$EXTRA_FEATURE_GAY        = isset($_REQUEST["extra"]) || (!$DISABLE_ALL_EXTRA && !isset($_REQUEST["republican"]));$/;"	v
+EXTRA_FEATURE_PHOTOS	support_files/extra.php	/^$EXTRA_FEATURE_PHOTOS     = isset($_REQUEST["extra"]) || (!$DISABLE_ALL_EXTRA && !isset($_REQUEST["nophotos"]));$/;"	v
+EXTRA_FEATURE_VALIDATION	support_files/extra.php	/^$EXTRA_FEATURE_VALIDATION = isset($_REQUEST["extra"]) || (!$DISABLE_ALL_EXTRA && !isset($_REQUEST["novalid"]));;$/;"	v
+INPUT_FILENAME	support_files/extra.php	/^$INPUT_FILENAME = $EXTRA_FEATURE_GAY ? "singles2.txt" : "singles.txt";$/;"	v
+REGULAR	support_files/provided.js	/^	var REGULAR = [];$/;"	v
+SUITE	support_files/provided.js	/^	var SUITE = REGULAR;$/;"	v
+add_row	support_files/provided.js	/^	function add_row(test_name, expected, actual, th) {$/;"	f
+chunks	support_files/provided.js	/^		var chunks = url.split(\/&\/);$/;"	v
+clear_results	support_files/provided.js	/^	function clear_results() {$/;"	f
+create_results	support_files/provided.js	/^	function create_results() {$/;"	f
+error_exit	support_files/extra.php	/^function error_exit($message = "") {$/;"	f
+geluso_main	support_files/provided.js	/^	function geluso_main() {$/;"	f
+parseQueryParams	support_files/provided.js	/^	function parseQueryParams() {$/;"	f
+populateForm	support_files/provided.js	/^	function populateForm() {$/;"	f
+run_tests	support_files/provided.js	/^	function run_tests() {$/;"	f
+url	support_files/provided.js	/^		var url = window.location.search.substring(1);$/;"	v
+validate	support_files/extra.php	/^function validate($name, $gender, $age, $type, $os, $min_age, $max_age, $seek_gender) {$/;"	f
+windowLoad	support_files/provided.js	/^	function windowLoad() {$/;"	f
