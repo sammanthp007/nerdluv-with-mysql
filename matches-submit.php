@@ -3,9 +3,6 @@ require_once('./init.php');
 
 include("top.html");
 
-/* Get all singles */
-$singles = file("singles.txt");
-
 /* Get the info about user */
 $user_personality = '';
 $user_os = '';
@@ -82,10 +79,10 @@ $sql .= "JOIN seeking_age ON users.id = seeking_age.user_id ";
 $sql .= "JOIN personalities ON users.id = personalities.user_id ";
 $sql .= "WHERE users.gender = ";
 $sql .= "'" . $match_gender . "' ";
-$sql .= "and users.age > ". $user_min_seek . " ";
-$sql .= "and users.age < ". $user_max_seek . " ";
-$sql .= "and seeking_age.min_age < " . $user_age . " ";
-$sql .= "and seeking_age.max_age > " . $user_age . " ";
+$sql .= "and users.age >= ". $user_min_seek . " ";
+$sql .= "and users.age <= ". $user_max_seek . " ";
+$sql .= "and seeking_age.min_age <= " . $user_age . " ";
+$sql .= "and seeking_age.max_age >= " . $user_age . " ";
 $sql .= "and fav_os.name = '" . $user_os . "'; ";
 
 $results = mysqli_query($db, $sql);
